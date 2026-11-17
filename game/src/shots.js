@@ -90,7 +90,20 @@ export function stageShot(name, world) {
   }
 
   if (name === 'play') {
-    const screen = runUntil(world, (s) => s.collected >= MID_RUN_EMBERS, null);
+    // Stop once the run has some shape to it *and* a moth has come inside the light, so the frame
+    // shows the actual tension instead of an empty cave with a firefly in it.
+    const screen = runUntil(
+      world,
+      (s) =>
+        s.collected >= MID_RUN_EMBERS &&
+        s.moths.some(
+          (m) =>
+            m.hunting &&
+            Math.hypot(m.x - s.player.x, m.y - s.player.y) < s.lightRadius * 0.45 &&
+            m.x > 110 && m.x < FIELD.width - 110 && m.y > 110 && m.y < FIELD.height - 110,
+        ),
+      'glow',
+    );
     return { screen: screen === SCREEN_PLAY ? SCREEN_PLAY : screen };
   }
 
@@ -102,7 +115,7 @@ export function stageShot(name, world) {
       world,
       (s) =>
         s.charge > 0.3 &&
-        s.moths.some((m) => m.hunting && Math.hypot(m.x - s.player.x, m.y - s.player.y) < s.lightRadius * 0.55),
+        s.moths.some((m) => m.hunting && Math.hypot(m.x - s.player.x, m.y - s.player.y) < s.lightRadius * 0.34),
       'glow',
     );
     return { screen: screen === SCREEN_PLAY ? SCREEN_PLAY : screen };

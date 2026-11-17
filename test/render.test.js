@@ -13,12 +13,13 @@ function mockCanvas() {
   const gradient = () => ({ addColorStop: (stop, color) => calls.push({ kind: 'stop', stop, color }) });
   const context = {
     canvas: null,
-    setTransform() {}, save() {}, restore() {}, translate() {}, rotate() {},
+    setTransform() {}, save() {}, restore() {}, translate() {}, rotate() {}, setLineDash() {},
     fillRect() { calls.push({ kind: 'fillRect' }); },
     strokeRect() { calls.push({ kind: 'strokeRect' }); },
     beginPath() {}, closePath() {}, arc() {}, ellipse() {}, moveTo() {}, lineTo() {},
     fill() { calls.push({ kind: 'fill' }); }, stroke() { calls.push({ kind: 'stroke' }); },
     createRadialGradient() { return gradient(); },
+    createLinearGradient() { return gradient(); },
     measureText: (value) => ({ width: String(value).length * 8 }),
     fillText(value) { calls.push({ kind: 'text', value: String(value) }); },
     set fillStyle(value) { if (value === undefined) throw new Error('fillStyle set to undefined'); this._fill = value; },
@@ -28,6 +29,8 @@ function mockCanvas() {
     set lineWidth(value) { if (value === undefined) throw new Error('lineWidth set to undefined'); },
     set globalAlpha(value) { if (value === undefined) throw new Error('globalAlpha set to undefined'); },
     set globalCompositeOperation(value) { if (value === undefined) throw new Error('globalCompositeOperation set to undefined'); },
+    set shadowColor(value) { if (value === undefined) throw new Error('shadowColor set to undefined'); },
+    set shadowBlur(value) { if (value === undefined) throw new Error('shadowBlur set to undefined'); },
     set font(value) { if (value === undefined) throw new Error('font set to undefined'); },
     set textAlign(value) { if (value === undefined) throw new Error('textAlign set to undefined'); },
     set textBaseline(value) {},
@@ -87,9 +90,13 @@ test('the HUD shows the player what they are doing', () => {
     renderer.draw(world.state, SCREEN_PLAY, 0);
     const words = calls.filter((c) => c.kind === 'text').map((c) => c.value).join(' | ');
     assert.match(words, /13 \/ 24 embers/);
-    assert.match(words, /Score 341/);
-    assert.match(words, /wave 2/);
-    assert.match(words, /glow/i);
+    assert.match(words, /SCORE/);
+    assert.match(words, /341/);
+    assert.match(words, /WAVE 2/);
+    // Both bars are named: an unlabelled pair of bars leaves the player guessing which is fuel.
+    assert.match(words, /DAWN/);
+    assert.match(words, /GLOW/);
+    assert.match(words, /glow|SPACE/i);
   });
 });
 

@@ -72,7 +72,7 @@ export const PALETTE = {
   ember: '#ffb547',
   emberCore: '#fff0c2',
   moth: '#ff5d8f',
-  mothDark: '#8a2547',
+  mothDark: '#a8315b',
   text: '#eef4ff',
   muted: '#7c8aa8',
   panel: '#101a33',
