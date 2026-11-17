@@ -1,8 +1,14 @@
 # Ember Drift
 
+[![make.fun · best-game-01](https://make.fun/badge/best-game-01.svg)](https://make.fun/bounty/best-game-01?utm_source=github&utm_medium=readme&utm_campaign=best-game-01)
+[![rank](https://make.fun/badge/best-game-01/fvxkrz/ember-drift/rank.svg)](https://make.fun/bounty/best-game-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=best-game-01)
+[![reward](https://make.fun/badge/best-game-01/fvxkrz/ember-drift/reward.svg)](https://make.fun/bounty/best-game-01?utm_source=github&utm_medium=readme&utm_campaign=best-game-01)
+
 A small arcade game about being the only light in a cave. You are a firefly with one
 ember-bright glow, and the glow is both your only way to see and the only thing the moths
 can find.
+
+Entry for [make.fun's "Make the best game" bounty](https://make.fun/bounty/best-game-01).
 
 **Play:** open `game/index.html` in a desktop browser, or run `node serve.ts` and visit
 http://localhost:8080.
